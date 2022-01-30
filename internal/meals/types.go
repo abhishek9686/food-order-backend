@@ -1,7 +1,8 @@
 package meals
 
 type meal struct {
-	Item        string  `json:"item"`
+	ID          string  `json:"id"`
+	Name        string  `json:"name"`
 	Price       float32 `json:"price"`
 	Description string  `json:"description"`
 }
@@ -9,17 +10,20 @@ type meal struct {
 var (
 	mealItems = []meal{
 		{
-			Item:        "Sushi",
+			ID:          "m1",
+			Name:        "Sushi",
 			Price:       22.99,
 			Description: "Finest fish and veggies",
 		},
 		{
-			Item:        "Schnitzel",
+			ID:          "m2",
+			Name:        "Schnitzel",
 			Price:       16.50,
 			Description: "A german specialty!",
 		},
 		{
-			Item:        "Green Bowl",
+			ID:          "m3",
+			Name:        "Green Bowl",
 			Price:       18.99,
 			Description: "Healthy...and green...",
 		},
