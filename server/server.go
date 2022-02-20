@@ -1,11 +1,11 @@
-package http
+package server
 
 import (
 	"log"
 	"net/http"
 	"time"
 
-	"github.com/food-order-app/food-order-backend/internal/meals"
+	"github.com/abhishek9686/food-order-backend/internal/meals"
 	"github.com/gorilla/mux"
 	"github.com/rs/cors"
 )
