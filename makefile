@@ -13,6 +13,9 @@ dockerImg:
 watch:
 	reflex -s -r '\.go$$' make run
 
+run-postgres-dev:
+	docker run -d --name postgres-dev -p 5432:5432 -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=root \
+	-e POSTGRES_DB=food-order-app postgres
 clean:
 	go clean
 	@rm -f ./foodOrder	
