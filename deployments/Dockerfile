@@ -1,6 +1,6 @@
 FROM alpine:latest
 
-COPY ../cmd/foodOrder .
+COPY ../foodOrder .
 
 ENTRYPOINT [ "/foodOrder" ]
 

@@ -2,12 +2,20 @@
 
 all: 
 	go mod tidy
-	${MAKE} cmd dockerImg clean
+	${MAKE} build dockerImg clean
+build:
+	GOOS=linux CGO_ENABLED=0 go build -o foodOrder
 
-cmd:
-	make -C cmd all
+
 dockerImg:
 	docker build -f ./deployments/Dockerfile . -t abhi9686/foodorder:v1
+
+watch:
+	reflex -s -r '\.go$$' make run
+
+run-postgres-dev:
+	docker run -d --name postgres-dev -p 5432:5432 -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=root \
+	-e POSTGRES_DB=food-order-app postgres
 clean:
 	go clean
-	@rm -f ./cmd/foodOrder	
+	@rm -f ./foodOrder	
