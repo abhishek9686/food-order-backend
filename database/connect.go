@@ -20,7 +20,8 @@ func ConnectDB() {
 	port, err := strconv.ParseUint(p, 10, 32)
 
 	if err != nil {
-		log.Println("Idiot")
+		log.Println("Failed to conv port: ", err)
+		return
 	}
 
 	// Connection URL to connect to Postgres Database
