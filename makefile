@@ -2,13 +2,13 @@
 
 all: 
 	go mod tidy
-	${MAKE} build dockerImg clean
-build:
+	${MAKE} build-bin dockerImg clean
+build-bin:
 	GOOS=linux CGO_ENABLED=0 go build -o foodOrder
 
 
 dockerImg:
-	docker build -f ./deployments/Dockerfile . -t abhi9686/foodorder:v1
+	docker build -f ./build/Dockerfile . -t abhi9686/foodorder-bd:latest
 
 watch:
 	reflex -s -r '\.go$$' make run

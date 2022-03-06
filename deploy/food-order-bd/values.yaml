@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 httpServicePort: &defaultServicePort 80
 tag: &defaultTag latest
-namespace: food-order
+namespace: &appNs food-order
 clusterIP: 10.10.0.10
 clusterDomain: nip.io
 imageRegistry: &imageDefaultRegistry abhi9686
@@ -11,12 +11,14 @@ replicaCount: 1
 
 image:
   registry: *imageDefaultRegistry
-  name: food-order-bd
+  name: foodorder-bd
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: *defaultTag
 
-imagePullSecrets: []
+imagePullSecrets:
+  - name: regcred
+
 nameOverride: 'food-order-bd'
 fullnameOverride: 'food-order-bd-chart'
 
@@ -45,6 +47,7 @@ securityContext:
   # runAsUser: 1000
 
 service:
+  name: food-order-bd
   type: NodePort
   port: *defaultServicePort
 
