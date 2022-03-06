@@ -8,7 +8,7 @@ build-bin:
 
 
 dockerImg:
-	docker build -f ./build/Dockerfile . -t abhi9686/foodorder-bd:latest
+	docker build -f ./build/Dockerfile . -t abhi9686/food-order-bd:latest
 
 watch:
 	reflex -s -r '\.go$$' make run

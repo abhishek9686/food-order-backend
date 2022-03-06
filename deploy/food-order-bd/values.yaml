@@ -1,23 +1,18 @@
 # Default values for food-order-bd.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-httpServicePort: &defaultServicePort 80
-tag: &defaultTag latest
-namespace: &appNs food-order
 clusterIP: 10.10.0.10
 clusterDomain: nip.io
-imageRegistry: &imageDefaultRegistry abhi9686
 replicaCount: 1
 
 image:
-  registry: *imageDefaultRegistry
-  name: foodorder-bd
+  registry: abhi9686
+  name: food-order-bd
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
-  tag: *defaultTag
+  tag: "latest"
 
-imagePullSecrets:
-  - name: regcred
+imagePullSecrets: []
 
 nameOverride: 'food-order-bd'
 fullnameOverride: 'food-order-bd-chart'
@@ -49,7 +44,7 @@ securityContext:
 service:
   name: food-order-bd
   type: NodePort
-  port: *defaultServicePort
+  port: 80
 
 ingress:
   enabled: false

@@ -18,6 +18,11 @@ func Start() {
 
 	router := mux.NewRouter()
 	router.HandleFunc("/api/meals", meals.GetMeals).Methods("GET")
+	router.HandleFunc("/api/ping", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Add("Content-Type", "application/json")
+		w.Write([]byte("ok"))
+	})
 	handler := cors.Default().Handler(router)
 	log.Fatal(http.ListenAndServe(":8008", handler))
 
