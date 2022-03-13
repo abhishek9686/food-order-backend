@@ -17,8 +17,14 @@ watch:
 	reflex -s -r '\.go$$' make run
 
 run-postgres-dev:
-	docker run -d --name postgres-dev -p 5432:5432 -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=root \
+	docker start postgres-dev || docker run -d --name postgres-dev -p 5432:5432 -e POSTGRES_USER=admin -e POSTGRES_PASSWORD=root \
 	-e POSTGRES_DB=food-order-app postgres
+
+run-dev:
+	${MAKE} run-postgres-dev
+	go build -o foodOrder
+	chmod +x foodOrder
+	./foodOrder
 
 deploy:
 	helm upgrade --install  food-order-bd ./deploy/food-order-bd  -n food-order --create-namespace
