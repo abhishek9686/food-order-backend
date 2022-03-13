@@ -6,6 +6,7 @@ import (
 	"strconv"
 
 	"github.com/abhishek9686/food-order-backend/config"
+	"github.com/abhishek9686/food-order-backend/internal/user"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -34,6 +35,7 @@ func ConnectDB() {
 	if err != nil {
 		panic("failed to connect database")
 	}
+	DB.AutoMigrate(&user.User{})
 
 	fmt.Println("Connection Opened to Database")
 }
