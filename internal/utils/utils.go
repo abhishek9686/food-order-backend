@@ -9,6 +9,7 @@ import (
 	"net/http"
 )
 
+// ReadAndParseInput - unmarshall json body
 func ReadAndParseInput(w http.ResponseWriter, r *http.Request, input interface{}) error {
 
 	body, err := ioutil.ReadAll(io.LimitReader(r.Body, MaxRestAPIPayload))
@@ -40,6 +41,7 @@ func ReadAndParseInput(w http.ResponseWriter, r *http.Request, input interface{}
 	return nil
 }
 
+// GetUnmarshallErrorString ...
 func GetUnmarshallErrorString(unMarshalErr error) error {
 	if ute, ok := unMarshalErr.(*json.UnmarshalTypeError); ok {
 		return errors.New("Input " + ute.Value + " for field " + ute.Field + " is incorrect.")
