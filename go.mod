@@ -3,9 +3,11 @@ module github.com/abhishek9686/food-order-backend
 go 1.17
 
 require (
+	github.com/badoux/checkmail v1.2.1
 	github.com/gorilla/mux v1.8.0
 	github.com/joho/godotenv v1.4.0
 	github.com/rs/cors v1.8.2
+	golang.org/x/crypto v0.0.0-20220112180741-5e0467b6c7ce
 	gorm.io/driver/postgres v1.3.1
 	gorm.io/gorm v1.23.1
 )
@@ -21,6 +23,5 @@ require (
 	github.com/jackc/pgx/v4 v4.14.1 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.4 // indirect
-	golang.org/x/crypto v0.0.0-20220112180741-5e0467b6c7ce // indirect
 	golang.org/x/text v0.3.7 // indirect
 )
