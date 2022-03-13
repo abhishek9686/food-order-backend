@@ -13,11 +13,12 @@ import (
 
 // User ...
 type User struct {
+	Role      string    `gorm:"default:user" json:"role"`
 	ID        uint32    `gorm:"primary_key;auto_increment" json:"id"`
-	FirstName string    `gorm:"size:255;not null;unique" json:"first_name"`
-	LastName  string    `gorm:"size:255;not null;unique" json:"last_name"`
+	FirstName string    `gorm:"size:255;not null" json:"first_name"`
+	LastName  string    `gorm:"size:255;not null" json:"last_name"`
 	Email     string    `gorm:"size:100;not null;unique" json:"email"`
-	Phone     int64     `gorm:"size:100" json:"phone"`
+	Phone     int64     `gorm:"size:100;unique;not null" json:"phone"`
 	Password  string    `gorm:"size:100;not null;" json:"password"`
 	Address   string    `gorm:"size:255" json:"address"`
 	CreatedAt time.Time `gorm:"default:CURRENT_TIMESTAMP" json:"created_at"`
@@ -35,13 +36,19 @@ func VerifyPassword(hashedPassword, password string) error {
 }
 
 // BeforeSave ...
-func (u *User) BeforeSave() error {
+func (u *User) BeforeSave(tx *gorm.DB) error {
 	hashedPassword, err := Hash(u.Password)
 	if err != nil {
 		return err
 	}
 	u.Password = string(hashedPassword)
 	return nil
+}
+func (u *User) AfterCreate(tx *gorm.DB) (err error) {
+	if u.ID == 1 {
+		tx.Model(u).Update("role", "admin")
+	}
+	return
 }
 
 // Prepare ...
@@ -112,7 +119,6 @@ func (u *User) Validate(action string) error {
 func (u *User) CreateUser(db *gorm.DB) (*User, error) {
 	var err error
 	u.Prepare()
-	u.BeforeSave()
 	if err := u.Validate(""); err != nil {
 		return &User{}, err
 	}
