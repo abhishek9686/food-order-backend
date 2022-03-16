@@ -122,7 +122,10 @@ func (u *User) CreateUser(db *gorm.DB) (*User, error) {
 	if err := u.Validate(""); err != nil {
 		return &User{}, err
 	}
-	err = db.Debug().Create(&u).Error
+	tx := db.Debug().Create(&u)
+	if tx != nil && tx.Error != nil {
+		err = tx.Error
+	}
 	if err != nil {
 		return &User{}, err
 	}
