@@ -3,10 +3,10 @@ package database
 import (
 	"fmt"
 	"log"
+	"os/user"
 	"strconv"
 
 	"github.com/abhishek9686/food-order-backend/config"
-	"github.com/abhishek9686/food-order-backend/internal/user"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
